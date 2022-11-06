@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/screens/past_record_screen.dart';
+import 'package:quiz_app/screens/quiz_config_screen.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
 
 import '../screens/home_screen.dart';
@@ -25,13 +27,22 @@ class RouterNotifier extends ChangeNotifier {
         GoRoute(
             path: '/',
             name: HomeScreen.routeName,
-            builder: ((context, state) => const HomeScreen())),
+            builder: (context, state) => const HomeScreen()),
+        GoRoute(
+            path: '/past-record',
+            name: PastRecordScreen.routeName,
+            builder: (context, state) => const PastRecordScreen()),
         GoRoute(
             path: '/settings',
             name: SettingScreen.routeName,
-            builder: ((context, state) => const SettingScreen())),
+            builder: (context, state) => const SettingScreen()),
         GoRoute(
-          path: '/quiz-screen',
+          path: '/quiz-config',
+          name: QuizConfigScreen.routeName,
+          builder: (context, state) => const QuizConfigScreen(),
+        ),
+        GoRoute(
+          path: '/quiz',
           name: QuizScreen.routeName,
           builder: (context, state) => const QuizScreen(),
         )

@@ -7,6 +7,7 @@ class Question extends Equatable {
   final String question;
   final String correctAnswer;
   final List<String> answers;
+  final bool timerOn;
 
   const Question({
     required this.category,
@@ -14,6 +15,7 @@ class Question extends Equatable {
     required this.question,
     required this.correctAnswer,
     required this.answers,
+    this.timerOn = false,
   });
 
   @override
@@ -23,6 +25,7 @@ class Question extends Equatable {
         question,
         correctAnswer,
         answers,
+        timerOn
       ];
 
   factory Question.fromMap(Map<String, dynamic> map) {

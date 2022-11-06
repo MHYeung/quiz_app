@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/model/question/question.dart';
+import 'package:quiz_app/model/question.dart';
 import 'package:quiz_app/model/quiz_state.dart';
 
 final quizControllerProvider =

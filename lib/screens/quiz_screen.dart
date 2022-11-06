@@ -3,14 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:html_character_entities/html_character_entities.dart';
 import 'package:quiz_app/controllers/quiz_controller.dart';
+import 'package:quiz_app/global_components/custom_button.dart';
 import 'package:quiz_app/model/failure.dart';
-import 'package:quiz_app/model/question/question.dart';
+import 'package:quiz_app/model/question.dart';
 import 'package:quiz_app/model/quiz_state.dart';
 import 'package:quiz_app/repository/quiz_repository.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:quiz_app/screens/home_screen.dart';
 
 final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>(
     (ref) => ref.watch(quizRepositoryProvider).getQuestions(
@@ -21,7 +24,7 @@ final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>(
 class QuizScreen extends HookConsumerWidget {
   const QuizScreen({super.key});
 
-  static const routeName = 'quiz-screen';
+  static const routeName = 'quiz';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -94,50 +97,6 @@ class QuizError extends StatelessWidget {
   }
 }
 
-const List<BoxShadow> boxShadow = [
-  BoxShadow(
-    color: Colors.black26,
-    offset: Offset(0, 2),
-    blurRadius: 4.0,
-  ),
-];
-
-class CustomButton extends StatelessWidget {
-  final String title;
-  final VoidCallback onTap;
-
-  const CustomButton({
-    Key? key,
-    required this.title,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(20.0),
-        height: 50.0,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.yellow[700],
-          boxShadow: boxShadow,
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class QuizResults extends HookConsumerWidget {
   const QuizResults({super.key, required this.state, required this.questions});
 
@@ -176,6 +135,9 @@ class QuizResults extends HookConsumerWidget {
             ref.read(quizControllerProvider.notifier).reset();
           },
         ),
+        CustomButton(
+            title: 'Home Screen',
+            onTap: ((() => context.goNamed(HomeScreen.routeName)))),
       ],
     );
   }
@@ -215,7 +177,7 @@ class QuizQuestions extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 12.0),
               child: Text(
-                HtmlCharacterEntities.decode(question.question!),
+                HtmlCharacterEntities.decode(question.question),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 28.0,

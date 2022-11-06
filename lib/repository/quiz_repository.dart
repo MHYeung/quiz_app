@@ -5,7 +5,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/model/failure.dart';
-import 'package:quiz_app/model/question/question.dart';
+import 'package:quiz_app/model/question.dart';
 
 
 final dioProvider = Provider<Dio>((ref) => Dio());
