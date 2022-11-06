@@ -15,19 +15,28 @@ import 'package:quiz_app/repository/quiz_repository.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:quiz_app/screens/home_screen.dart';
 
-final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>(
-    (ref) => ref.watch(quizRepositoryProvider).getQuestions(
-        numQuestions: 10,
-        categoryId: Random().nextInt(24) + 9,
-        difficulty: Difficulty.any));
 
+final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>(
+        (ref) => ref.watch(quizRepositoryProvider).getQuestions(
+            numQuestions: 3,
+            categoryId: 24,
+            difficulty: Difficulty.any));
 class QuizScreen extends HookConsumerWidget {
-  const QuizScreen({super.key});
+  const QuizScreen(
+      {super.key,
+      required this.number,
+      required this.catId,
+      required this.diff});
 
   static const routeName = 'quiz';
 
+  final int number;
+  final int catId;
+  final Difficulty diff;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final quizQuestions = ref.watch(quizQuestionsProvider);
     final pageController = usePageController();
 
@@ -75,7 +84,7 @@ class QuizScreen extends HookConsumerWidget {
     }
     print(questions);
 
-    final quizState = ref.watch(quizControllerProvider.notifier).state;
+    final quizState = ref.watch(quizControllerProvider.notifier).debugState;
     return quizState.status == QuizStatus.complete
         ? QuizResults(state: quizState, questions: questions)
         : QuizQuestions(

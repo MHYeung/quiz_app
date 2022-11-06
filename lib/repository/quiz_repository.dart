@@ -42,6 +42,7 @@ class QuizRepository{
         final data = Map<String, dynamic>.from(response.data);
         final results = List<Map<String, dynamic>>.from(data['results'] ?? []);
         if (results.isNotEmpty) {
+          print(results);
           return results.map((e) => Question.fromMap(e)).toList();
         }
       }

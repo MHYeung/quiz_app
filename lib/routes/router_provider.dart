@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/model/question.dart';
 import 'package:quiz_app/screens/past_record_screen.dart';
 import 'package:quiz_app/screens/quiz_config_screen.dart';
 import 'package:quiz_app/screens/quiz_screen.dart';
@@ -42,9 +43,14 @@ class RouterNotifier extends ChangeNotifier {
           builder: (context, state) => const QuizConfigScreen(),
         ),
         GoRoute(
-          path: '/quiz',
+          path: '/quiz/:number/:catId/:difficulty',
           name: QuizScreen.routeName,
-          builder: (context, state) => const QuizScreen(),
+          builder: (context, state) {
+            int number = int.parse(state.params['number']!);
+            int catId = int.parse(state.params['catId']!);
+            Difficulty difficulty = Difficulty.values[int.parse(state.params['difficulty']!)];
+            return QuizScreen(number: number, catId: catId, diff: difficulty);
+          },
         )
       ];
 }

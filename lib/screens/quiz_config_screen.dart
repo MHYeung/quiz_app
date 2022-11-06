@@ -26,22 +26,34 @@ class QuizConfigScreen extends HookConsumerWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Number of Questions: ', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  Text('Number of Questions: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_left, color: Colors.amber,),
+                        icon: Icon(
+                          Icons.arrow_left,
+                          color: Colors.amber,
+                        ),
                         onPressed: () {},
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
-                        child: Text('5', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),),
-                        decoration:
-                            BoxDecoration(border: Border.all(width: 2, color: Colors.amber)),
+                        child: Text(
+                          '5',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 2, color: Colors.amber)),
                       ),
                       IconButton(
-                        icon: Icon(Icons.arrow_right, color: Colors.amber,),
+                        icon: Icon(
+                          Icons.arrow_right,
+                          color: Colors.amber,
+                        ),
                         onPressed: () {},
                       ),
                     ],
@@ -54,12 +66,12 @@ class QuizConfigScreen extends HookConsumerWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Difficulty: ', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  Text('Difficulty: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                     
-                    ],
+                    children: [],
                   )
                 ]),
           ),
@@ -69,12 +81,12 @@ class QuizConfigScreen extends HookConsumerWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Category: ', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  Text('Category: ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                     
-                    ],
+                    children: [],
                   )
                 ]),
           ),
@@ -84,13 +96,16 @@ class QuizConfigScreen extends HookConsumerWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Timer: ', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)), //15s per question
+                  Text('Timer: ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16)), //15s per question
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Text('Off'),
-                     Switch(value: false, onChanged: (value){}),
-                     Text('On')
+                      Text('Off'),
+                      Switch(value: false, onChanged: (value) {}),
+                      Text('On')
                     ],
                   )
                 ]),
@@ -98,7 +113,8 @@ class QuizConfigScreen extends HookConsumerWidget {
         ],
       )),
       floatingActionButton: CustomButton(
-        onTap: (() => context.goNamed(QuizScreen.routeName)),
+        onTap: (() => context.goNamed(QuizScreen.routeName,
+            params: {'number': '2', 'catId': '15', 'difficulty': '0'})),
         title: 'Start The Quiz!',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
