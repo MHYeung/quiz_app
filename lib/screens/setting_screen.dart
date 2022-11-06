@@ -5,12 +5,12 @@ import 'package:flutter/src/widgets/framework.dart';
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
-  static const name = 'settings';
+  static const routeName = 'settings';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: Text('Settings')),
+       appBar: AppBar(title: const Text('Settings')),
     );
   }
 }

@@ -1,30 +1,41 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
-part 'question.freezed.dart';
-part 'question.g.dart';
+class Question extends Equatable {
+  final String category;
+  final String difficulty;
+  final String question;
+  final String correctAnswer;
+  final List<String> answers;
 
-@freezed
-class Question with _$Question{
+  const Question({
+    required this.category,
+    required this.difficulty,
+    required this.question,
+    required this.correctAnswer,
+    required this.answers,
+  });
 
+  @override
+  List<Object> get props => [
+        category,
+        difficulty,
+        question,
+        correctAnswer,
+        answers,
+      ];
 
-  late final Reader _read;
-
-  factory Question({
-    @JsonKey(name: 'category') String? category,
-    @JsonKey(name: 'difficulty') String? difficulty,
-    @JsonKey(name: 'question') String? question,
-    @JsonKey(name: 'correct') String? correctAnswer,
-    @Default([]) List<String> answers,
-  }) = _Question;
-
-  factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
+  factory Question.fromMap(Map<String, dynamic> map) {
+    return Question(
+      category: map['category'] ?? '',
+      difficulty: map['difficulty'] ?? '',
+      question: map['question'] ?? '',
+      correctAnswer: map['correct_answer'] ?? '',
+      answers: List<String>.from(map['incorrect_answers'] ?? [])
+        ..add(map['correct_answer'] ?? '')
+        ..shuffle(),
+    );
+  }
 }
 
-enum Difficulty{
-  any,
-  easy,
-  medium,
-  hard
-}
+enum Difficulty { any, easy, medium, hard }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/routes/router_provider.dart';
@@ -11,8 +10,6 @@ void main(){
 class RootApp extends HookConsumerWidget {
   const RootApp({super.key});
 
-  
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
@@ -21,9 +18,10 @@ class RootApp extends HookConsumerWidget {
         routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
-      title: 'Training App Combined',
+      title: 'Quiz App',
       themeMode: ThemeMode.dark,
       theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
