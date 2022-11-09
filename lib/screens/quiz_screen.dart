@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:html_character_entities/html_character_entities.dart';
+import 'package:quiz_app/controllers/quiz_config_controller.dart';
 import 'package:quiz_app/controllers/quiz_controller.dart';
 import 'package:quiz_app/global_components/custom_button.dart';
 import 'package:quiz_app/model/failure.dart';
@@ -14,29 +15,26 @@ import 'package:quiz_app/model/quiz_state.dart';
 import 'package:quiz_app/repository/quiz_repository.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:quiz_app/screens/home_screen.dart';
+import 'package:quiz_app/screens/quiz_config_screen.dart';
 
+final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>((ref) {
+  final config = ref.watch(quizConfigControllerProvider);
+  print(config);
+  return ref.watch(quizRepositoryProvider).getQuestions(
+      numQuestions: config.numOfQuestions,
+      categoryId: config.categoryId,
+      difficulty: config.difficulty);
+});
 
-final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>(
-        (ref) => ref.watch(quizRepositoryProvider).getQuestions(
-            numQuestions: 3,
-            categoryId: 24,
-            difficulty: Difficulty.any));
 class QuizScreen extends HookConsumerWidget {
-  const QuizScreen(
-      {super.key,
-      required this.number,
-      required this.catId,
-      required this.diff});
+  const QuizScreen({
+    super.key,
+  });
 
   static const routeName = 'quiz';
 
-  final int number;
-  final int catId;
-  final Difficulty diff;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final quizQuestions = ref.watch(quizQuestionsProvider);
     final pageController = usePageController();
 
@@ -142,6 +140,7 @@ class QuizResults extends HookConsumerWidget {
           onTap: () {
             ref.invalidate(quizRepositoryProvider);
             ref.read(quizControllerProvider.notifier).reset();
+            context.goNamed(QuizConfigScreen.routeName);
           },
         ),
         CustomButton(

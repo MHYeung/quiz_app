@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/controllers/quiz_config_controller.dart';
 import 'package:quiz_app/global_components/custom_button.dart';
 import 'package:quiz_app/global_components/title.dart';
 import 'package:quiz_app/model/question.dart';
@@ -113,8 +114,11 @@ class QuizConfigScreen extends HookConsumerWidget {
         ],
       )),
       floatingActionButton: CustomButton(
-        onTap: (() => context.goNamed(QuizScreen.routeName,
-            params: {'number': '2', 'catId': '15', 'difficulty': '0'})),
+        onTap: (() {
+          ref.read(quizConfigControllerProvider.notifier).setConfig(
+              number: 5, id: 15, timer: false, diff: Difficulty.easy);
+          context.goNamed(QuizScreen.routeName);
+        }),
         title: 'Start The Quiz!',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

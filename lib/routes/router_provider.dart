@@ -43,14 +43,9 @@ class RouterNotifier extends ChangeNotifier {
           builder: (context, state) => const QuizConfigScreen(),
         ),
         GoRoute(
-          path: '/quiz/:number/:catId/:difficulty',
+          path: '/quiz',
           name: QuizScreen.routeName,
-          builder: (context, state) {
-            int number = int.parse(state.params['number']!);
-            int catId = int.parse(state.params['catId']!);
-            Difficulty difficulty = Difficulty.values[int.parse(state.params['difficulty']!)];
-            return QuizScreen(number: number, catId: catId, diff: difficulty);
-          },
+          builder: (context, state) => const QuizScreen()
         )
       ];
 }
