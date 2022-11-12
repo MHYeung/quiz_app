@@ -9,6 +9,8 @@ import 'package:quiz_app/screens/quiz_screen.dart';
 
 //TODO: TIMER OPTION, DIFFICULTY, CATEGORY
 
+final numberProvider = StateProvider((ref) => 1);
+
 class QuizConfigScreen extends HookConsumerWidget {
   const QuizConfigScreen({super.key});
 
@@ -16,58 +18,69 @@ class QuizConfigScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final number = ref.watch(numberProvider);
     return Scaffold(
       body: SafeArea(
           child: Column(
         children: [
           const TitleText(title: 'Configure your quiz'),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-            margin: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+            margin: const EdgeInsets.all(4.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Number of Questions: ',
+                  const Text('Number of Questions: ',
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_left,
                           color: Colors.amber,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                        if(!(number < 1)){
+                            ref.read(numberProvider.notifier).state--;
+                          }
+                          
+                        },
                       ),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
+                        // ignore: sort_child_properties_last
                         child: Text(
-                          '5',
-                          style: TextStyle(
+                          '$number',
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16),
                         ),
                         decoration: BoxDecoration(
                             border: Border.all(width: 2, color: Colors.amber)),
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_right,
                           color: Colors.amber,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if(!(number > 20)){
+                            ref.read(numberProvider.notifier).state++;
+                          }
+                        },
                       ),
                     ],
                   )
                 ]),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-            margin: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+            margin: const EdgeInsets.all(4.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Difficulty: ',
+                  const Text('Difficulty: ',
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
@@ -77,12 +90,12 @@ class QuizConfigScreen extends HookConsumerWidget {
                 ]),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-            margin: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+            margin: const EdgeInsets.all(4.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Category: ',
+                  const Text('Category: ',
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
                   Row(
@@ -92,21 +105,21 @@ class QuizConfigScreen extends HookConsumerWidget {
                 ]),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-            margin: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+            margin: const EdgeInsets.all(4.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Timer: ',
+                  const Text('Timer: ',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16)), //15s per question
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Off'),
+                      const Text('Off'),
                       Switch(value: false, onChanged: (value) {}),
-                      Text('On')
+                      const Text('On')
                     ],
                   )
                 ]),
@@ -116,8 +129,9 @@ class QuizConfigScreen extends HookConsumerWidget {
       floatingActionButton: CustomButton(
         onTap: (() {
           ref.read(quizConfigControllerProvider.notifier).setConfig(
-              number: 5, id: 15, timer: false, diff: Difficulty.easy);
+              number: number, id: 15, timer: false, diff: Difficulty.easy);
           context.goNamed(QuizScreen.routeName);
+          ref.read(numberProvider.notifier).state = 5;
         }),
         title: 'Start The Quiz!',
       ),
