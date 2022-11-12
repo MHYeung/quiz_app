@@ -16,7 +16,6 @@ class QuizConfigController extends StateNotifier<QuizConfig>{
       timerOn: timer,
       difficulty: diff,
     );
-    print(state);
   }
 
 void reset() {

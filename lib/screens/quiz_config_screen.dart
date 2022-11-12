@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +10,7 @@ import 'package:quiz_app/screens/quiz_screen.dart';
 
 //TODO: TIMER OPTION, DIFFICULTY, CATEGORY
 
-final numberProvider = StateProvider((ref) => 1);
+final numberProvider = StateProvider((ref) => 5);
 
 class QuizConfigScreen extends HookConsumerWidget {
   const QuizConfigScreen({super.key});
@@ -19,6 +20,7 @@ class QuizConfigScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final number = ref.watch(numberProvider);
+    final config = ref.watch(quizConfigControllerProvider);
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -42,10 +44,9 @@ class QuizConfigScreen extends HookConsumerWidget {
                           color: Colors.amber,
                         ),
                         onPressed: () {
-                        if(!(number < 1)){
+                          if (!(number < 1)) {
                             ref.read(numberProvider.notifier).state--;
                           }
-                          
                         },
                       ),
                       Container(
@@ -65,7 +66,7 @@ class QuizConfigScreen extends HookConsumerWidget {
                           color: Colors.amber,
                         ),
                         onPressed: () {
-                          if(!(number > 20)){
+                          if (!(number > 20)) {
                             ref.read(numberProvider.notifier).state++;
                           }
                         },
@@ -86,7 +87,25 @@ class QuizConfigScreen extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [],
-                  )
+                  ),
+                  DropdownButton(
+                      value: ref.read(quizConfigControllerProvider).difficulty,
+                      items: Difficulty.values
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(EnumToString.convertToString(e)
+                                    .toUpperCase()),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        ref
+                            .read(quizConfigControllerProvider.notifier)
+                            .setConfig(
+                                number: number,
+                                diff: value!,
+                                id: config.categoryId,
+                                timer: config.timerOn);
+                      }),
                 ]),
           ),
           Container(
@@ -118,7 +137,17 @@ class QuizConfigScreen extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Off'),
-                      Switch(value: false, onChanged: (value) {}),
+                      Switch(
+                          value: config.timerOn,
+                          onChanged: (value) {
+                            ref
+                                .read(quizConfigControllerProvider.notifier)
+                                .setConfig(
+                                    number: config.numOfQuestions,
+                                    id: config.categoryId,
+                                    timer: value,
+                                    diff: config.difficulty);
+                          }),
                       const Text('On')
                     ],
                   )
@@ -129,7 +158,10 @@ class QuizConfigScreen extends HookConsumerWidget {
       floatingActionButton: CustomButton(
         onTap: (() {
           ref.read(quizConfigControllerProvider.notifier).setConfig(
-              number: number, id: 15, timer: false, diff: Difficulty.easy);
+              number: number,
+              id: config.categoryId,
+              timer: config.timerOn,
+              diff: config.difficulty);
           context.goNamed(QuizScreen.routeName);
           ref.read(numberProvider.notifier).state = 5;
         }),
