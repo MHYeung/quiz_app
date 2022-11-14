@@ -39,3 +39,31 @@ class Question extends Equatable {
 }
 
 enum Difficulty { any, easy, medium, hard }
+
+const List<String> selectCategory = [
+  'Any Category',
+  'General Knowledge',
+  'Entertainment: Books',
+  'Entertainment: Film',
+  'Entertainment: Music',
+  'Entertainment: Musicals & Theatres',
+  'Entertainment: Television',
+  'Entertainment: Video Games',
+  'Entertainment: Board Games',
+  'Science & Nature',
+  'Science: Computers',
+  'Science: Mathematics',
+  'Mythology',
+  'Sports',
+  'Geography',
+  'History',
+  'Politics',
+  'Art',
+  'Celebrities',
+  'Animals',
+  'Vehicles',
+  'Entertainment: Comics',
+  'Science: Gadgets',
+  'Entertainment: Japnese Anime & Manga',
+  'Entertainment: Cartoon & Animations'
+];

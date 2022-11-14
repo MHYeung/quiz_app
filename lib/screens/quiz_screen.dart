@@ -19,10 +19,9 @@ import 'package:quiz_app/screens/quiz_config_screen.dart';
 
 final quizQuestionsProvider = FutureProvider.autoDispose<List<Question>>((ref) {
   final config = ref.watch(quizConfigControllerProvider);
-  print(config);
   return ref.watch(quizRepositoryProvider).getQuestions(
       numQuestions: config.numOfQuestions,
-      categoryId: config.categoryId,
+      categoryId: config.categoryId + 9,
       difficulty: config.difficulty);
 });
 
@@ -80,7 +79,6 @@ class QuizScreen extends HookConsumerWidget {
     if (questions.isEmpty) {
       return const QuizError(message: 'No questions found.');
     }
-    print(questions);
 
     final quizState = ref.watch(quizControllerProvider.notifier).debugState;
     return quizState.status == QuizStatus.complete

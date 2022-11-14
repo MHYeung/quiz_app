@@ -16,8 +16,8 @@ class QuizConfig extends Equatable {
       required this.difficulty});
 
   factory QuizConfig.initial() {
-    return QuizConfig(
-      categoryId: Random().nextInt(24) + 9,
+    return const QuizConfig(
+      categoryId: 9,
       difficulty: Difficulty.any,
       numOfQuestions: 3,
       timerOn: false,
