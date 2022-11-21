@@ -49,6 +49,7 @@ dependencies:
   enum_to_string: ^2.0.1
   equatable: ^2.0.5
   html_character_entities: ^1.0.0+1
+  flutter_secure_storage: ^6.0.0
 
 dev_dependencies:
   flutter_test:

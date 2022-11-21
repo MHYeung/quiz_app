@@ -18,10 +18,19 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const TitleText(title: 'Settings'),
+          CustomButton(
+            title: 'About App',
+            onTap: () => showAboutDialog(
+                context: context,
+                applicationName: 'Quiz 2 Gather',
+                applicationIcon: const Icon(Icons.quiz)),
+            color: Colors.transparent,
+            textColor: Colors.white,
+          )
         ],
       )),
       floatingActionButton: CustomButton(

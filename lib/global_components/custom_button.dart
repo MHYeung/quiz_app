@@ -11,11 +11,15 @@ const List<BoxShadow> boxShadow = [
 class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  Color color;
+  Color? textColor;
 
-  const CustomButton({
+   CustomButton({
     Key? key,
     required this.title,
     required this.onTap,
+    this.color = const Color.fromARGB(255, 251, 192, 45),
+    this.textColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -27,17 +31,17 @@ class CustomButton extends StatelessWidget {
         height: 50.0,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.yellow[700],
+          color: color,
           boxShadow: boxShadow,
           borderRadius: BorderRadius.circular(25.0),
         ),
         alignment: Alignment.center,
         child: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w600,
-            color: Colors.black
+            color: textColor
           ),
         ),
       ),

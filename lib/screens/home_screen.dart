@@ -21,7 +21,7 @@ class HomeScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CustomButton(
-          onTap: (() => context.goNamed(QuizConfigScreen.routeName)),
+          onTap: (() => context.pushNamed(QuizConfigScreen.routeName)),
           title: 'Start Quiz',
         ),
         CustomButton(
